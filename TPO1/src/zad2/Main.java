@@ -6,8 +6,6 @@
 
 package zad2;
 
-import java.util.Locale;
-
 import javax.swing.SwingUtilities;
 
 public class Main {

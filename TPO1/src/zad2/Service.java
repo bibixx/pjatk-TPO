@@ -22,7 +22,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Service {
 	static private final String OPENWEATHER_API_KEY = "cbc1ca1955c56b1632c86a7c617202a9";
 	static private final String OPENWEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather?q=%s,%s&appid=%s";
+
 	static private final String EXCHANGE_RATES_API_URL = "https://api.exchangeratesapi.io/latest?base=%s&symbols=%s";
+	
+	static private final String NBP_KURS_TABLE_URL = "https://www.nbp.pl/kursy/kursy%s.html";
+	static private final String NBP_KURS_XML_URL = "https://www.nbp.pl/kursy/xml/%s";
 	
 	private String country;
 
@@ -106,7 +110,7 @@ public class Service {
 			return 1d;
 		}
 		
-		String tableUrl = String.format("https://www.nbp.pl/kursy/kursy%s.html", table);
+		String tableUrl = String.format(Service.NBP_KURS_TABLE_URL, table);
 
 		String tablePageData;
 
@@ -126,7 +130,7 @@ public class Service {
 	    }
 	    
 	    String fileName = matcher.group(1);
-	    String apiUrl = String.format("https://www.nbp.pl/kursy/xml/%s", fileName);
+	    String apiUrl = String.format(Service.NBP_KURS_XML_URL, fileName);
 
 		String data;
 		try {
