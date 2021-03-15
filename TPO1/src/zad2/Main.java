@@ -6,14 +6,23 @@
 
 package zad2;
 
+import java.util.Locale;
+
+import javax.swing.SwingUtilities;
 
 public class Main {
-  public static void main(String[] args) {
+  public static void main(String[] args) {	  
     Service s = new Service("Poland");
     String weatherJson = s.getWeather("Warsaw");
     Double rate1 = s.getRateFor("USD");
     Double rate2 = s.getNBPRate();
-    // ...
-    // część uruchamiająca GUI
+    
+    System.out.println(weatherJson);
+    System.out.println(rate1);
+    System.out.println(rate2);
+    
+    SwingUtilities.invokeLater(() -> {
+    	new UI();
+    });
   }
 }
