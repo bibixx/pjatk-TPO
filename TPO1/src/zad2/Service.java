@@ -20,10 +20,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Service {
-	static private final String OPENWEATHER_API_KEY = "cbc1ca1955c56b1632c86a7c617202a9";
+	static private final String OPENWEATHER_API_KEY = "da69d685b2b482b14cb890fc18d57459";
 	static private final String OPENWEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather?q=%s,%s&appid=%s";
 
-	static private final String EXCHANGE_RATES_API_URL = "https://api.exchangeratesapi.io/latest?base=%s&symbols=%s";
+	static private final String EXCHANGE_RATES_API_URL = "https://api.exchangerate.host/convert?from=%s&to=%s";
 	
 	static private final String NBP_KURS_TABLE_URL = "https://www.nbp.pl/kursy/kursy%s.html";
 	static private final String NBP_KURS_XML_URL = "https://www.nbp.pl/kursy/xml/%s";
@@ -42,7 +42,7 @@ public class Service {
 			countryISOCode,
 			Service.OPENWEATHER_API_KEY
 		);
-		
+
 		try {
 			return Utils.makeRequest(apiUrl);	
 		} catch (IOException e) {
@@ -75,7 +75,7 @@ public class Service {
 		
 		String apiUrl = String.format(Service.EXCHANGE_RATES_API_URL, currencyCode, baseCurrencyCode);
 		String data;
-
+		
 		try {
 			data = Utils.makeRequest(apiUrl);
 		} catch (IOException e1) {
@@ -85,7 +85,13 @@ public class Service {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode json = mapper.readTree(data);
-			JsonNode currencyObject = json.get("rates").get(baseCurrencyCode); 
+			JsonNode rates = json.get("info");
+			
+			if (rates == null) {
+				return null;
+			}
+			
+			JsonNode currencyObject = rates.get("rate"); 
 			
 			if (currencyObject == null) {
 				return null;
