@@ -19,4 +19,14 @@
     <servlet-name>Books</servlet-name>
     <url-pattern>/Books</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Book</display-name>
+    <servlet-name>Book</servlet-name>
+    <servlet-class>zad1.Book</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Book</servlet-name>
+    <url-pattern>/Book</url-pattern>
+  </servlet-mapping>
 </web-app>
